@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <!-- Require Meta Tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Title Website -->
+        <title>Number Cores/Threads</title>
+        <!-- Style -->
+        <style type="text/css">
+            body, html {
+                /* Reset */
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+
+                /* Position */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+
+                /* Style */
+                background: rgb(33, 32, 32);
+            }
+
+            #qtdNucleos {
+               color: #fefefe;
+               font-family: monospace;
+               font-size: 3rem; 
+            }
+            
+        </style>
+    </head>
+    <body>
+        <h1 id="qtdNucleos"></h1>
+        <!-- --- * --- Components --- * --- -->
+        <script type="text/javascript">
+            // Request Hardware Information
+            const nucleos = window.navigator.hardwareConcurrency;
+
+            // shows the number of cores available in the console
+            console.log(`${nucleos} disponíveis`);
+
+            // prints the number of cores available in the DOM element
+            document.querySelector('#qtdNucleos').innerHTML = `${nucleos} disponíveis`;
+        </script>
+    </body>
+</html>
