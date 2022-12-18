@@ -99,28 +99,28 @@
         </section>
 
         <script type="text/javascript">
-            var value1 = document.querySelector('#value1').value;
-            var value2 = document.querySelector('#value2').value;
-            var value3 = document.querySelector('#value3').value;
             document.querySelector('.btn').addEventListener('click', ()=> {
-                let token = verifyCode();
-                if(token >= 1) {
-                    let rgbConverter = rgbToHex(value1,value2,value3);
-                    // document.querySelector('#rgbConverter').innerHTML = rgbConverter;
-                    console.log(rgbConverter)
-                };
+                verifyCode();
             });
             function verifyCode() {
+                var value1 = document.querySelector('#value1').value;
+                var value2 = document.querySelector('#value2').value;
+                var value3 = document.querySelector('#value3').value;
                 let token = 0;
                 if(value1.length <= 3 && value2.length <= 3 && value3.length <= 3 && value1.length >= 1 && value2.length >= 1 && value3.length >= 1) {
                     if(/^[0-9]*$/.test(value1) && /^[0-9]*$/.test(value2) && /^[0-9]*$/.test(value3)) {
-                        return token = 1;
+                        value1 = parseInt(value1);
+                        value2 = parseInt(value2);
+                        value3 = parseInt(value3);
+                        let rgbConverter = rgbToHex(value1,value2,value3);
+                        document.querySelector('#valueConverter').innerHTML = rgbConverter;
+                        console.log(rgbConverter)
                     } else {
                         alert('Enter Correct Values')
                     };
                 };
             };
-            const rgbToHex = (r,g,b) => "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            const rgbToHex = (r,g,b) => "#" + ((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
         </script>
     </body>
 </html>
