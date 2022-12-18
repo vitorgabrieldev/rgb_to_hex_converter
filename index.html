@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Title Website -->
-        <title>Number Cores/Threads</title>
+        <title>Rgb to hex converter</title>
         <!-- Style -->
         <style type="text/css">
             body, html {
@@ -24,26 +24,103 @@
                 background: rgb(33, 32, 32);
             }
 
-            #qtdNucleos {
-               color: #fefefe;
-               font-family: monospace;
-               font-size: 3rem; 
+            .container {
+                background: rgb(49, 47, 47);
+                border-radius: 8px;
+                padding: 1.3rem;
+                text-align: center;
+            }
+
+            .title__header {
+                color: #fefefe;
+                font-family: monospace;
+                font-size: 2rem;
+            }
+
+            .container__inputs {
+                background: rgb(38, 35, 35);
+                padding: .5rem;
+                border-radius: 6px;
+            }
+
+            .inputs {
+                background: rgb(77, 76, 76);
+                padding: .4rem;
+                outline: #fefefe;
+                color: #fefefe;
+                font-size: 2rem;
+                text-align: center;
+                border: none;
+                border-radius: 5px;
+                width: 4rem;
+                height: 2rem;
+            }
+
+            .btn {
+                border: none;
+                border-radius: 8px;
+                margin: .5rem;
+                padding: .5rem;
+                font-size: 2rem;
+                background: rgb(72, 71, 71);
+                color: #eeeeee;
+
+                cursor: pointer;
+                transition: .3s;
+                user-select: none;
+            }
+
+            .btn:hover {
+                background: #dfdfdf;
+                color: rgb(72, 71, 71);
+            }
+
+            #valueConverter {
+                color: #fefefe;
+                font-family: monospace;
+                font-size: 2rem;
+                background: rgb(36, 34, 34);
+                border-radius: 6px;
             }
             
         </style>
     </head>
     <body>
-        <h1 id="qtdNucleos"></h1>
         <!-- --- * --- Components --- * --- -->
+        <section class="container">
+            <h1 class="title__header">Rgb to hex converter</h1>
+            <div class="container__inputs">
+                <input id="value1" type="text" class="inputs" maxlength="3" spellcheck="false">
+                <input id="value2" type="text" class="inputs" maxlength="3" spellcheck="false">
+                <input id="value3" type="text" class="inputs" maxlength="3" spellcheck="false">
+            </div>
+            <button type="button" class="btn">To Convert</button>
+            <h1 id="valueConverter"></h1>
+        </section>
+
         <script type="text/javascript">
-            // Request Hardware Information
-            const nucleos = window.navigator.hardwareConcurrency;
-
-            // shows the number of cores available in the console
-            console.log(`${nucleos} disponíveis`);
-
-            // prints the number of cores available in the DOM element
-            document.querySelector('#qtdNucleos').innerHTML = `${nucleos} disponíveis`;
+            var value1 = document.querySelector('#value1').value;
+            var value2 = document.querySelector('#value2').value;
+            var value3 = document.querySelector('#value3').value;
+            document.querySelector('.btn').addEventListener('click', ()=> {
+                let token = verifyCode();
+                if(token >= 1) {
+                    let rgbConverter = rgbToHex(value1,value2,value3);
+                    // document.querySelector('#rgbConverter').innerHTML = rgbConverter;
+                    console.log(rgbConverter)
+                };
+            });
+            function verifyCode() {
+                let token = 0;
+                if(value1.length <= 3 && value2.length <= 3 && value3.length <= 3 && value1.length >= 1 && value2.length >= 1 && value3.length >= 1) {
+                    if(/^[0-9]*$/.test(value1) && /^[0-9]*$/.test(value2) && /^[0-9]*$/.test(value3)) {
+                        return token = 1;
+                    } else {
+                        alert('Enter Correct Values')
+                    };
+                };
+            };
+            const rgbToHex = (r,g,b) => "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
         </script>
     </body>
 </html>
